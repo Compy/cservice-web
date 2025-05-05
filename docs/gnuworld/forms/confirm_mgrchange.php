@@ -1,5 +1,6 @@
 <?php
 require("../../../php_includes/cmaster.inc");
+
 global $loadavg5;
 	$ENABLE_COOKIE_TABLE=0;
 if($loadavg5 >= (2*CRIT_LOADAVG))
@@ -46,7 +47,7 @@ if (!empty($_GET["ID"]) && preg_match($pattern, $_GET["ID"])) {
 	std_theme_styles();
 	echo "</head>";
 	std_theme_body("../");
-	echo "<form method=POST><h1>Manager Change Confirmation</h1>Please enter the ID you recieved in the email below.";
+	echo "<form method=GET><h1>Manager Change Confirmation</h1>Please enter the ID you recieved in the email below.";
 	echo "<input type=text name=ID size=50 maxlength=128><br><input type=submit value=\"Comfirm Manager Change\">";
 	echo "</form></body></html>";
 }

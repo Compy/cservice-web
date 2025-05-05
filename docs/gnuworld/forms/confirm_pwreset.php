@@ -66,8 +66,8 @@ if ($ID!="" && strlen($ID)<=128) {
 	std_theme_styles();
 	echo "</head>";
 	std_theme_body("../");
-	echo "<form method=POST><h1>Verification Question/Answer Reset Confirmation</h1>Please enter the ID you recieved in the email below.";
-	echo "<input type=text name=ID size=50 maxlength=128><br><input type=submit value=\"Complete Verification Question/Answer Reset\">";
+	echo "<form method=POST><h1>Verification Question/Answer Reset Confirmation</h1><p>Please enter the ID you recieved in the email below.</p>";
+	echo "<p><input type=text name=ID size=50 maxlength=128><br><input type=submit value=\"Complete Verification Question/Answer Reset\"></p>";
 	echo "</form></body></html>";
 }
 
