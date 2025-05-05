@@ -365,12 +365,12 @@ if (pg_numrows($res2)==0) {
         exit;
 }
 $multiple_ok=0;
-if (isset($multiple) && $multiple==1) {
+if (isset($_POST["multiple"]) && $_POST["multiple"]==1) {
 	$fc = explode(" ",$_POST["forcechannel"]);
 	$forcechannel_C = $fc[1];
 	$forcechannel_I = $fc[0];
 }
-if (pg_numrows($res2)>1 && $multiple==1 && isset($forcechannel) && $forcechannel!="" && preg_match("/^#/",$forcechannel_C) && $forcechannel_I>1) {
+if (pg_numrows($res2)>1 && $_POST["multiple"]==1 && !empty($_POST["forcechannel"]) && preg_match("/^#/",$forcechannel_C) && $forcechannel_I>1) {
 	if ($_POST["crc"] == md5($_POST["ts"] . $_SERVER["HTTP_USER_AGENT"] . $user_id . CRC_SALT_0004)) {
 		$multiple_ok=1;
 	}

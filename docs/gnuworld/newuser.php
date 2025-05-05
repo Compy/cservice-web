@@ -155,6 +155,7 @@ switch ((int)$curr_step) {
       global $LOCK_USERNAME;
 	  if (md5( CRC_SALT_0008 . $_POST["username"] . "UCHECK" )!=$_POST["username_crc"]) { $err .= "<li> <b>Attempt to hack page content !</b> (username)\n"; $hackpc = 1; }
 		if (!is_email_valid($_POST["email"])) { $err .= "<li> Your e-mail address is invalid.\n"; }
+		if (is_email_disposable($_POST["email"])) { $err .= "<li> Please us a different e-mail provider.\n"; }
 		if (is_email_locked($LOCK_USERNAME,$_POST["email"])) { $err .= "<li> You are not allowed to create an account using this email address (" . $_POST["email"] . ")\n"; }
 		$email_nreg = pg_safe_exec("SELECT * FROM noreg WHERE lower(email)='" . post2db(strtolower($_POST["email"])) . "' and user_name='*'");
 		if (pg_numrows($email_nreg)>0) { $err .= "<li> This email account (" . $_POST["email"] . ") is in NOREG, you can't use it for username registration.\n"; }
@@ -286,6 +287,7 @@ switch ((int)$curr_step) {
 			if (!preg_match("/^[A-Za-z0-9]+$/",$_POST["username"])) { $err .= "<li> Your username must be made of letters (A-Z, a-z) and numbers (0-9).\n"; }
 			if (is_locked_va($_POST["verificationdata"])) { $err .= "<li> The verification answer you have chosen is too common. Please pick an answer that is unique and that you will remember.\n"; }
 		}
+		if (is_ip_proxy($user_ip)) { $err .= "<li> Your IP address cannot be used to register a username at this time.\n"; }
 		if ($err!="") { err_newuser($err); } else {
 			echo "<input type=hidden name=is13 value=1>\n";
 			echo "<input type=hidden name=username value=\"" . post2input($_POST["username"]) . "\">\n";

@@ -4,6 +4,7 @@ std_connect();
 	$ENABLE_COOKIE_TABLE=0;
 $user_id = isset($_COOKIE["auth"]) ? std_security_chk($_COOKIE["auth"]) : 0;
 $cTheme = get_theme_info();
+
 if ($user_id>0) {
 	std_theme_styles(1); std_theme_body("../");
 	echo "You should not view that page while being logged in heh ?!.<br><a href=\"../index.php\" target=\"_top\">click here</a>.<br>\n";
@@ -246,10 +247,11 @@ if ($crc == md5($HTTP_USER_AGENT . $ts . CRC_SALT_0009)) {
 
 	$cookieval = md5(CRC_SALT_0015 . uniqid("",1) . time() . $da_emailaddy . $verifdata);
 	pg_safe_exec("INSERT INTO pending_pwreset (cookie,user_id,question_id,verificationdata,expiration) VALUES ('$cookieval',$uid,'$verifq','$verifdata',date_part('epoch', CURRENT_TIMESTAMP)::int+21600)");
-	$confirm_url = gen_server_url() . LIVE_LOCATION . "/forms/confirm_pwreset.php?ID=$cookieval";
+	$confirm_url = gen_server_url() . LIVE_LOCATION . "/forms/confirm_pwreset.php";
 	$the_msg = "If you would like to confirm that the new verification question/answer for '$da_username' should be changed as requested,\n";
-	$the_msg .= "then click on the link below within 6 hours :\n\n";
-	$the_msg .= "\t$confirm_url\n\n\nThank you\n" . NETWORK_NAME . " Channel Service\n\n\nPS- Please do *NOT* reply to this mail.";
+	$the_msg .= "then click on the link below within 6 hours and use the following verification ID to confirm the change:\n\n";
+	$the_msg .= "\tVerification ID: $cookieval\n\n";
+	$the_msg .= "\tURL: $confirm_url\n\n\nThank you\n" . NETWORK_NAME . " Channel Service\n\n\nPS- Please do *NOT* reply to this mail.";
 
 	custom_mail($da_emailaddy,"Verification Question/Answer Reset",$the_msg,"From: " . NETWORK_NAME . " Verification answer reset <" . OBJECT_EMAIL . ">\nReply-To: no.reply@thank.you\nX-Mailer: " . NETWORK_NAME . " Channel Service");
 

@@ -1,4 +1,4 @@
-<?
+<?php
 
 include("../../../../php_includes/cmaster.inc");
 std_init();
@@ -26,7 +26,7 @@ echo "<html><head><title>" . BOT_NAME . "@ (Pending Review Manager Changes)</tit
 ?>
 <style type=text/css>
 <!--
-.frauduser { color: #<?=$cTheme->main_headtextcolor?>; background: #<?=$cTheme->main_frauduser?>; bgcolor: #<?=$cTheme->main_frauduser?>; }
+.frauduser { color: #<?=$cTheme->main_textcolor?>; background: #<?=$cTheme->main_frauduser?>; bgcolor: #<?=$cTheme->main_frauduser?>; }
 //-->
 </style>
 <?
